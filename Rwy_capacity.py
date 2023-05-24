@@ -26,6 +26,7 @@ def main():
     st.write("Tableau des aéronefs choisis :")
     aeronef_table = pd.DataFrame(selected_aeronefs, columns=["Aéronef", "Proportion"])
     st.table(aeronef_table)
+    print( selected_aeronefs)
     st.sidebar.title("Paramètres")
 
     st.sidebar.header("Piste")
