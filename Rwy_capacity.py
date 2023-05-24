@@ -13,13 +13,13 @@ def main():
     st.markdown("<font color='red'><b>Veuillez choisir un aéronef</b></font>", unsafe_allow_html=True)
 
     aeroname = st.selectbox("Type d'aéronef", aeronef_df)
-    proportion = st.slider("Proportion (%)", 0, 100, 0)
+    proportions = st.slider("Proportion (%)", 0, 100, 0)
 
     valid_button = st.button("Valider")
     p=sum([proportion for _, proportion in selected_aeronefs])
-    if valid_button and p > 0:
-        selected_aeronefs.append((aeroname, proportion))
-        if proportion <100:
+    if valid_button and proportions > 0:
+        selected_aeronefs.append((aeroname, proportions))
+        if p <100:
             st.success("Ajouter un autre aéronef")
         else :
              st.success("Trafic constitué")
