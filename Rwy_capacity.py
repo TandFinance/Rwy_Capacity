@@ -7,6 +7,7 @@ def load_aeronef():
 
 def main():
     aeronef_df = load_aeronef()
+    selected_aeronefs = []
 
     st.title("AÉRONEF")
     st.markdown("<font color='red'><b>Veuillez choisir un aéronef</b></font>", unsafe_allow_html=True)
@@ -16,15 +17,15 @@ def main():
 
     valid_button = st.button("Valider")
     
-    selected_aeronefs = []
     if valid_button and proportion > 0:
         selected_aeronefs.append((aeroname, proportion))
         st.success("Trafic constitué")
+        remaining_proportion = 100 - sum([proportion for _, proportion in selected_aeronefs])
+        st.slider("Proportion (%)", 0, remaining_proportion, 0)
 
-    if selected_aeronefs:
-        st.write("Tableau des aéronefs choisis :")
-        aeronef_table = pd.DataFrame(selected_aeronefs, columns=["Aéronef", "Proportion"])
-        st.table(aeronef_table)
+    st.write("Tableau des aéronefs choisis :")
+    aeronef_table = pd.DataFrame(selected_aeronefs, columns=["Aéronef", "Proportion"])
+    st.table(aeronef_table)
 
     st.sidebar.title("Paramètres")
 
