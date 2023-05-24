@@ -13,9 +13,14 @@ def main():
     list_aeronef = st.selectbox("Type", aeronef_df, 0)
 
     proportion = 0
-    valid_button = st.button("Valider", key="valid_button")
+    valid_button = st.empty()
+    proportion_slider = st.slider("Proportion (%)", 0, 100, 0)
+    
+    if proportion_slider > 0:
+        valid_button = st.button("Valider")
+        
     if valid_button:
-        proportion = st.slider("Proportion (%)", 0, 100 - proportion, 0)
+        proportion = proportion_slider
         st.success("Trafic constitué")
 
     st.sidebar.title("Paramètres")
@@ -41,6 +46,7 @@ def main():
         "Proportion": [proportion]
     })
 
+    st.markdown("<br><br>---", unsafe_allow_html=True)
     st.write("**Veuillez choisir un aéronef**", unsafe_allow_html=True)
 
     if valid_button:
