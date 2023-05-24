@@ -1,13 +1,13 @@
 import streamlit as st
 import pandas as pd
-
+selected_aeronefs = []
 def load_aeronef():
     df = pd.read_csv("aeronef.csv")
     return df["Type"].tolist()
 
 def main():
     aeronef_df = load_aeronef()
-    selected_aeronefs = []
+    
 
     st.title("AÉRONEF")
     st.markdown("<font color='red'><b>Veuillez choisir un aéronef</b></font>", unsafe_allow_html=True)
@@ -16,18 +16,16 @@ def main():
     proportion = st.slider("Proportion (%)", 0, 100, 0)
 
     valid_button = st.button("Valider")
-    
-    if valid_button and proportion > 0:
+    p=sum([proportion for _, proportion in selected_aeronefs])
+    if valid_button and p > 0:
         selected_aeronefs.append((aeroname, proportion))
-        st.success("Trafic constitué")
-
+        if proportion <100:
+            st.success("Ajouter un autre aéronef")
+        else :
+             st.success("Trafic constitué")
     st.write("Tableau des aéronefs choisis :")
     aeronef_table = pd.DataFrame(selected_aeronefs, columns=["Aéronef", "Proportion"])
     st.table(aeronef_table)
-
-    if sum([proportion for _, proportion in selected_aeronefs]) == 100:
-        st.success("Trafic constitué")
-
     st.sidebar.title("Paramètres")
 
     st.sidebar.header("Piste")
