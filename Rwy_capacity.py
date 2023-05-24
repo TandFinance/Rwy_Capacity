@@ -20,8 +20,6 @@ def main():
     if valid_button and proportion > 0:
         selected_aeronefs.append((aeroname, proportion))
         st.success("Trafic constitué")
-        remaining_proportion = 100 - sum([proportion for _, proportion in selected_aeronefs])
-        st.slider("Proportion (%)", 0, remaining_proportion, 0)
 
     st.write("Tableau des aéronefs choisis :")
     aeronef_table = pd.DataFrame(selected_aeronefs, columns=["Aéronef", "Proportion"])
