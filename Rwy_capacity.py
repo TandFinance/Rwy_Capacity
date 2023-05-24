@@ -9,19 +9,22 @@ def main():
     aeronef_df = load_aeronef()
 
     st.title("AÉRONEF")
-    st.header("Choix de l'aéronef")
-    list_aeronef = st.selectbox("Type", aeronef_df, 0)
+    st.markdown("<font color='red'><b>Veuillez choisir un aéronef</b></font>", unsafe_allow_html=True)
 
-    proportion = 0
-    valid_button = st.empty()
-    proportion_slider = st.slider("Proportion (%)", 0, 100, 0)
+    aeroname = st.selectbox("Type d'aéronef", aeronef_df)
+    proportion = st.slider("Proportion (%)", 0, 100, 0)
+
+    valid_button = st.button("Valider")
     
-    if proportion_slider > 0:
-        valid_button = st.button("Valider")
-        
-    if valid_button:
-        proportion = proportion_slider
+    selected_aeronefs = []
+    if valid_button and proportion > 0:
+        selected_aeronefs.append((aeroname, proportion))
         st.success("Trafic constitué")
+
+    if selected_aeronefs:
+        st.write("Tableau des aéronefs choisis :")
+        aeronef_table = pd.DataFrame(selected_aeronefs, columns=["Aéronef", "Proportion"])
+        st.table(aeronef_table)
 
     st.sidebar.title("Paramètres")
 
@@ -40,18 +43,6 @@ def main():
 
     if simul_button:
         st.write("Simulation en cours...")
-
-    aeronef_table = pd.DataFrame({
-        "Aéronef": [list_aeronef],
-        "Proportion": [proportion]
-    })
-
-    st.markdown("<br><br>---", unsafe_allow_html=True)
-    st.write("**Veuillez choisir un aéronef**", unsafe_allow_html=True)
-
-    if valid_button:
-        st.write("Tableau des aéronefs choisis :")
-        st.table(aeronef_table)
 
     st.write(f"Longueur : {plong} m")
     st.write(f"Largeur : {plarg} m")
