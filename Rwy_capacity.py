@@ -25,6 +25,9 @@ def main():
     aeronef_table = pd.DataFrame(selected_aeronefs, columns=["Aéronef", "Proportion"])
     st.table(aeronef_table)
 
+    if sum([proportion for _, proportion in selected_aeronefs]) == 100:
+        st.success("Trafic constitué")
+
     st.sidebar.title("Paramètres")
 
     st.sidebar.header("Piste")
