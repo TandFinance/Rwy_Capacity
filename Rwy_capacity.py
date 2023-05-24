@@ -6,7 +6,18 @@ def load_aeronef():
     return df["Type"].tolist()
 
 def main():
-    st.title("ENTREE")
+    aeronef_df = load_aeronef()
+
+    st.title("AÉRONEF")
+    st.header("Choix de l'aéronef")
+    list_aeronef = st.selectbox("Type", aeronef_df, 0)
+
+    proportion = 0
+    valid_button = st.button("Valider", key="valid_button")
+    if valid_button:
+        proportion = st.slider("Proportion (%)", 0, 100 - proportion, 0)
+        st.success("Trafic constitué")
+
     st.sidebar.title("Paramètres")
 
     st.sidebar.header("Piste")
@@ -15,11 +26,6 @@ def main():
     plapp = st.sidebar.slider("LApp (NM)", 2.0, 10.0, 4.8, 0.1)
     qfu = st.sidebar.selectbox("QFU", list(range(37)))
     nbexit = st.sidebar.selectbox("NbExit", list(range(1, 21)))
-
-    st.sidebar.header("Aéronef")
-    aeronef_df = load_aeronef()
-    list_aeronef = st.sidebar.selectbox("Type", aeronef_df, 0)
-    melange = st.sidebar.slider("Proportion (%)", 0, 100, 0)
 
     st.sidebar.header("LOI")
     loi = st.sidebar.selectbox("LOI", ["Normal", "Uniforme", "KDE", "Autre"])
@@ -30,24 +36,23 @@ def main():
     if simul_button:
         st.write("Simulation en cours...")
 
+    aeronef_table = pd.DataFrame({
+        "Aéronef": [list_aeronef],
+        "Proportion": [proportion]
+    })
+
+    st.write("**Veuillez choisir un aéronef**", unsafe_allow_html=True)
+
+    if valid_button:
+        st.write("Tableau des aéronefs choisis :")
+        st.table(aeronef_table)
+
     st.write(f"Longueur : {plong} m")
     st.write(f"Largeur : {plarg} m")
     st.write(f"LApp : {plapp} NM")
     st.write(f"QFU : {qfu}")
     st.write(f"NbExit : {nbexit}")
-
-    st.write(f"Type : {list_aeronef}")
-    st.write(f"Proportion : {melange}%")
-
     st.write(f"LOI : {loi}")
-
-    if melange == 0:
-        st.warning("Veuillez choisir un aéronef")
-    elif melange == 100:
-        st.success("Trafic constitué")
-    else:
-        remaining_proportion = 100 - melange
-        st.warning(f"Choisir un autre : proportion restante : {remaining_proportion}%")
 
 if __name__ == "__main__":
     main()
