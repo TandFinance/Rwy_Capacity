@@ -5,12 +5,12 @@ def load_aeronef():
     return df["Type"].tolist()
 
 def main():
-     if "selected_aeronefs" not in st.session_state:
+    if "selected_aeronefs" not in st.session_state:
         selected_aeronefs=[]
         st.session_state.selected_aeronefs = []
-     else :
+    else :
         selected_aeronefs= st.session_state.selected_aeronefs 
-     aeronef_df = load_aeronef()
+    aeronef_df = load_aeronef()
     
 
     st.title("AÉRONEF")
