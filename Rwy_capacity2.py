@@ -18,24 +18,22 @@ if valid_button and proportions > 0:
     st.success("Ajouter un autre aéronef")
   else :
     st.success("Trafic constitué")
- st.write("Tableau des aéronefs choisis :")
- aeronef_table = pd.DataFrame(selected_aeronefs, columns=["Aéronef", "Proportion"])
- st.table(aeronef_table)
- print( selected_aeronefs)
- st.sidebar.title("Paramètres")
+st.write("Tableau des aéronefs choisis :")
+aeronef_table = pd.DataFrame(selected_aeronefs, columns=["Aéronef", "Proportion"])
+st.table(aeronef_table)
+print( selected_aeronefs)
+st.sidebar.title("Paramètres")
 
- st.sidebar.header("Piste")
- plong = st.sidebar.selectbox("Longueur (m)", list(range(500, 5001)), index=2500)
- plarg = st.sidebar.selectbox("Largeur (m)", list(range(20, 101)), index=25)
- plapp = st.sidebar.slider("LApp (NM)", 2.0, 10.0, 4.8, 0.1)
- qfu = st.sidebar.selectbox("QFU", list(range(37)))
- nbexit = st.sidebar.selectbox("NbExit", list(range(1, 21)))
+st.sidebar.header("Piste")
+plong = st.sidebar.selectbox("Longueur (m)", list(range(500, 5001)), index=2500)
+plarg = st.sidebar.selectbox("Largeur (m)", list(range(20, 101)), index=25)
+plapp = st.sidebar.slider("LApp (NM)", 2.0, 10.0, 4.8, 0.1)
+qfu = st.sidebar.selectbox("QFU", list(range(37)))
+nbexit = st.sidebar.selectbox("NbExit", list(range(1, 21)))
 
- st.sidebar.header("LOI")
- loi = st.sidebar.selectbox("LOI", ["Normal", "Uniforme", "KDE", "Autre"])
-
- st.sidebar.header("Simulation")
- simul_button = st.sidebar.button("Lancer la Simulation", key="simulation_button")
-
- if simul_button:
+st.sidebar.header("LOI")
+loi = st.sidebar.selectbox("LOI", ["Normal", "Uniforme", "KDE", "Autre"])
+st.sidebar.header("Simulation")
+simul_button = st.sidebar.button("Lancer la Simulation", key="simulation_button")
+if simul_button:
     st.write("Simulation en cours...")
