@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-selected_aeronefs = []
+st.session_state.selected_aeronefs=[]
 def load_aeronef():
     df = pd.read_csv("aeronef.csv")
     return df["Type"].tolist()
@@ -13,7 +13,8 @@ proportions = st.slider("Proportion (%)", 0, 100, 0)
 valid_button = st.button("Valider")
 p=sum([proportion for _, proportion in selected_aeronefs])
 if valid_button and proportions > 0:
-  selected_aeronefs.append((aeroname, proportions))
+  st.session_state.selected_aeronefs.append((aeroname, proportions))
+  selected_aeronefs=st.session_state.selected_aeronefs
   if p <100:
     st.success("Ajouter un autre aéronef")
   else :
