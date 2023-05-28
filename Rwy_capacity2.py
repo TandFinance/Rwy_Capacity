@@ -1,7 +1,8 @@
 import streamlit as st
 import pandas as pd
 selected_aeronefs=[]
-st.session_state.selected_aeronefs=[]
+if "selected_aeronefs" not in st.session_state:
+        st.session_state.selected_aeronefs = []
 def load_aeronef():
     df = pd.read_csv("aeronef.csv")
     return df["Type"].tolist()
