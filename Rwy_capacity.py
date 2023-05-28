@@ -1,6 +1,10 @@
 import streamlit as st
 import pandas as pd
-selected_aeronefs = []
+if "selected_aeronefs" not in st.session_state:
+        selected_aeronefs=[]
+        st.session_state.selected_aeronefs = []
+else :
+        selected_aeronefs= st.session_state.selected_aeronefs 
 def load_aeronef():
     df = pd.read_csv("aeronef.csv")
     return df["Type"].tolist()
@@ -18,7 +22,8 @@ def main():
     valid_button = st.button("Valider")
     p=sum([proportion for _, proportion in selected_aeronefs])
     if valid_button and proportions > 0:
-        selected_aeronefs.append((aeroname, proportions))
+        st.session_state.selected_aeronefs.append((aeroname, proportions))
+        selected_aeronefs=st.session_state.selected_aeronefs
         if p <100:
             st.success("Ajouter un autre aéronef")
         else :
@@ -44,13 +49,6 @@ def main():
 
     if simul_button:
         st.write("Simulation en cours...")
-
-    st.write(f"Longueur : {plong} m")
-    st.write(f"Largeur : {plarg} m")
-    st.write(f"LApp : {plapp} NM")
-    st.write(f"QFU : {qfu}")
-    st.write(f"NbExit : {nbexit}")
-    st.write(f"LOI : {loi}")
-
+   
 if __name__ == "__main__":
     main()
