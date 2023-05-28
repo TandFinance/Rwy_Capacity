@@ -3,6 +3,8 @@ import pandas as pd
 if "selected_aeronefs" not in st.session_state:
         selected_aeronefs=[]
         st.session_state.selected_aeronefs = []
+ else :
+        selected_aeronefs= st.session_state.selected_aeronefs 
 def load_aeronef():
     df = pd.read_csv("aeronef.csv")
     return df["Type"].tolist()
